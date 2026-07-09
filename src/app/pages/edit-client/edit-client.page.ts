@@ -43,4 +43,6 @@ export class EditClientPage implements OnInit {
       await this.service.updateClient(this.id, this.client);
       this.router.navigate(["/clients"]);
   } // fin save
+
+
 }

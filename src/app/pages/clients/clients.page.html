@@ -29,6 +29,7 @@
         <td>{{ c.phone }}</td>
         <td>
           <a [routerLink]="['/edit-client', c.id]" class="btn btn-warning"> Editar  </a>
+            <button class="btn btn-primary" (click)="delete(c.id)">Borrar</button>
         </td>
       </tr>
     </table>

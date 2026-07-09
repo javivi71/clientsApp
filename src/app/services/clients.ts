@@ -46,10 +46,12 @@ export class Clients {
       throw error;
     }
   }
+  
   async deleteClient(id: number) {
     const { error } = await supabase.from('clients').delete().eq('id', id);
     if (error) {
       throw error;
+      console.log(error);
     }
   }
 } // Fin clase Clients
