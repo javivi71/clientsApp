@@ -11,6 +11,7 @@ import {
 
 import { Clients } from 'src/app/services/clients';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Auth } from 'src/app/services/auth';
 
 @Component({
   selector: 'app-clients',
@@ -35,6 +36,8 @@ export class ClientsPage implements OnInit {
     private service: Clients,
     private router: Router,
     private route: ActivatedRoute,
+    private auth:Auth
+  
   ) {}
 
   ngOnInit() { this.loadClients()}
@@ -65,5 +68,12 @@ export class ClientsPage implements OnInit {
       alert('Error eliminando cliente');
     }
   }
+
+  async salir(){
+    await this.auth.logout();
+    alert('Sesión cerrada');
+  }
+
+
 
 } // Fin de la clase ClientsPage
