@@ -24,25 +24,46 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
     IonToolbar,
     CommonModule,
     FormsModule,
-    RouterLink
+    RouterLink,
   ],
 })
 export class ClientsPage implements OnInit {
   clients: any[] = [];
   id: number = 0;
 
-  constructor(private service: Clients, private router:Router, private route:ActivatedRoute) {}
+  constructor(
+    private service: Clients,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() { this.loadClients()}
 
-  async ionViewWillEnter() {
-    this.clients = await this.service.getClients();
+   async loadClients(){
+     this.clients = await this.service.getClients();
   }
 
-  async delete(id:number){
-      await this.service.deleteClient(id);
-      this.clients = await this.service.getClients();
-     console.log(`clients.page: delete, id:` + id);
+  /*
+  async delete(id: number) {
+    await this.service.deleteClient(id);
+    this.clients = await this.service.getClients();
+    console.log(`clients.page: delete, id:` + id);
   } // fin delete
-  
+  */
+
+  async delete(id: number) {
+    const confirmar = confirm('¿Desea eliminar este cliente?');
+    if (!confirmar) {
+      return;
+    }
+    try {
+      await this.service.deleteClient(id); // id pasado desde el template
+      // await this.service.getClients();  // refrescar la vista
+      await this.loadClients();     // refrescar la vista
+    } catch (error) {
+      console.error(error);
+      alert('Error eliminando cliente');
+    }
+  }
+
 } // Fin de la clase ClientsPage

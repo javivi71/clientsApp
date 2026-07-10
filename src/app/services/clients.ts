@@ -18,11 +18,10 @@ export class Clients {
   } // Fin getClientes()
 
   async getClient(id: number) {
-    const { data, error } = await supabase
-      .from('clients')
-      .select('*')
-      .eq('id', id)
-      .single();
+    const { data, error } = await supabase.from('clients')
+          .select('*')
+          .eq('id', id)
+          .single();
 
     if (error) {
       throw error;
@@ -46,7 +45,7 @@ export class Clients {
       throw error;
     }
   }
-  
+
   async deleteClient(id: number) {
     const { error } = await supabase.from('clients').delete().eq('id', id);
     if (error) {
